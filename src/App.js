@@ -1,24 +1,36 @@
 import React from 'react';
 import './App.css';
 import Counter from './counter';
-import {createStore} from 'redux';
-import Reducer from './reducers';
-import {Provider} from 'react-redux'
+import { composeWithDevTools } from 'redux-devtools-extension';
+import {createStore,combineReducers, applyMiddleware} from 'redux';
+import {Provider} from 'react-redux';
+// Reducers
+import countReducer from './countReducer';
+import productReducer from './productReducer';
+import modalReducer from './modalReducer'
+import thunk from 'redux-thunk'
 
-// Setup initial State
-const initialState = {
-  count: 0,
-  name:"Sattu"
-}
+import Modal from './modal'
+import Products from './products'
+const middleware = [thunk]
 
 // Setup Store
-const store = createStore(Reducer, initialState);
+const store = createStore( 
+ combineReducers({
+   countState:countReducer,
+   modalState:modalReducer,
+   productState:productReducer
+}),
+  composeWithDevTools(applyMiddleware(...middleware))
+);
 
 function App() {
   return (
     <div className="App">
      <Provider store={store}>
-       <Counter/>
+       <Counter random={"Hello"}/>
+       <Modal/>
+       <Products/>
      </Provider>
    </div>
   );

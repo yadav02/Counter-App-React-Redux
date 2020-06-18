@@ -1,10 +1,11 @@
 import {INCREASE, DECREASE, RESET} from './action';
 
-export default function Reducer(state, action){
-    console.log({state, action});
-    // if(action.type === "DECREASE") {
-    //   return {...state, count: state.count -1}
-    // }
+// Setup initial State
+const initialState = {
+  count: 0,
+  name:"Satyendra"
+}
+export default function Reducer(state= initialState, action){
   
     switch(action.type){
       case DECREASE:
